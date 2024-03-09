@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration monitorInterval="5">
+    <Properties>
+        <!-- 格式化输出：%date表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度 %msg：日志消息，%n是换行符-->
+        <property name="LOG_PATTERN" value="[%d{yyyy-MM-dd HH:mm:ss.SSS} %-5p] [%t] (%c:%L) - %m%n" />
+        <!-- 定义日志存储的路径-->
+        <property name="FILE_PATH" value="/usr/local/biyaolog/moseses.biyao.com" />
+        <Property name="PROJECT_NAME">moseses</Property>
+    </Properties>
+
+    <appenders>
+        <console name="Console" target="SYSTEM_OUT">
+            <!--输出日志的格式-->
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <!--控制台只输出level及其以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
+            <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
+        </console>
+        <RollingFile name="RollingFileInfo"
+                     fileName="${FILE_PATH}/${PROJECT_NAME}.log"
+                     filePattern="${FILE_PATH}/${PROJECT_NAME}.log-%d{yyyy-MM-dd}">
+            <PatternLayout pattern="${LOG_PATTERN}" />
+            <Policies>
+                <!-- 每天一个文件 -->
+                <TimeBasedTriggeringPolicy modulate="true"	interval="1" />
+            </Policies>
+            <DefaultRolloverStrategy max="30">
+                <Delete basePath="${sys:FILE_PATH}" maxDepth="1">
+                    <IfFileName glob="${PROJECT_NAME}.log.*" />
+                    <IfLastModified age="30d" />
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+    </appenders>
+    <!--然后定义loggers，只有定义了logger并引入的appender，appender才会生效-->
+    <loggers>
+
+        <!--过滤掉spring和mybatis的一些无用的DEBUG信息-->
+        <logger name="org.mybatis" level="info" additivity="false">
+            <AppenderRef ref="Console"/>
+        </logger>
+        <Logger name="RocketmqClient" level="ERROR"/>
+        <!--监控系统信息-->
+        <!--若是additivity设为false，则 子Logger 只会在自己的appender里输出，而不会在 父Logger 的appender里输出。-->
+        <Logger name="org.springframework" level="info" additivity="true">
+            <AppenderRef ref="Console"/>
+        </Logger>
+
+        <root level="info">
+            <appender-ref ref="Console"/>
+            <appender-ref ref="RollingFileInfo"/>
+        </root>
+    </loggers>
+</configuration>

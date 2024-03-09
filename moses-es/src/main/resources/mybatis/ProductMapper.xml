@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.biyao.moses.pdc.mapper.ProductMapper">
+    <resultMap  id="baseProductResultMap" type="com.biyao.moses.pdc.domain.ProductDomain">
+        <id column="f_category_1_ids" jdbcType="VARCHAR" property="fcategory1Ids"/>
+        <result column="f_category_3_ids" jdbcType="VARCHAR" property="fcategory3Ids"/>
+        <result column="product_id" jdbcType="BIGINT" property="productId"/>
+        <result column="shelf_status" jdbcType="TINYINT" property="shelfStatus"/>
+        <result column="is_show" jdbcType="TINYINT" property="showStatus"/>
+        <result column="third_category_id" jdbcType="BIGINT" property="thirdCategoryId"/>
+        <result column="first_onshelf_time" jdbcType="TIMESTAMP" property="firstOnshelfTime"/>
+        <result column="support_platform" jdbcType="VARCHAR" property="supportPlatform"/>
+        <result column="product_pool" jdbcType="VARCHAR" property="supportAct"/>
+        <result column="short_title" jdbcType="VARCHAR" property="shortTitle"/>
+        <result column="new_privilege" jdbcType="INTEGER" property="newUserPrivilege"/>
+        <result column="new_privilate_deduct" jdbcType="DECIMAL" property="newPrivilateDeduct"/>
+        <result column="is_creator" jdbcType="TINYINT" property="isCreator"/>
+        <result column="support_texture" jdbcType="TINYINT" property="supportTexture"/>
+        <result column="tags_id" jdbcType="TINYINT" property="tagsId"/>
+        <result column="is_toggroup_product" jdbcType="TINYINT" property="isToggroupProduct"/>
+        <result column="second_category_id" jdbcType="BIGINT" property="secondCategoryId"/>
+        <result column="support_channel" jdbcType="VARCHAR" property="supportChannel"/>
+    </resultMap>
+
+    <sql id="selectColumn">
+	 	f_category_1_ids,
+		f_category_3_ids,
+		product_id,
+		shelf_status,
+		is_show,
+		third_category_id,
+		first_onshelf_time,
+		support_platform,
+		product_pool,
+		short_title,
+		new_privilege,
+		new_privilate_deduct,
+		support_texture,
+		is_creator,
+        tags_id,
+        is_toggroup_product,
+        second_category_id,
+        support_channel
+	 </sql>
+
+    <select id="getProductsByLastId" resultMap="baseProductResultMap">
+        select
+        <include refid="selectColumn"/>
+        from product
+	    where shelf_status = 1
+	    and is_show =0
+	    and product_id  &gt; #{lastId}
+		order by product_id  limit #{pageSize}
+    </select>
+
+
+    <select id="getUpdateProductsByLimitTime" resultMap="baseProductResultMap">
+        select
+        <include refid="selectColumn"/>
+        from product
+        where update_time &gt; #{time}
+    </select>
+
+    <select id="getProductInfoByPidList" resultMap="baseProductResultMap">
+        select
+        <include refid="selectColumn"/>
+        from product where product_id in (
+        <foreach collection="list" separator="," item="id">
+            (#{id})
+        </foreach>
+        )
+    </select>
+
+
+
+
+
+</mapper>

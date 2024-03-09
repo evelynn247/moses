@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	   http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+    <!--注解驱动-->
+    <mvc:annotation-driven/>
+    <!-- 开启APO -->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+
+    <!--导入其他springxml文件-->
+    <import resource="dataSource.xml"></import>
+    <import resource="config/spring-config-disconf.xml"></import>
+    <import resource="config/spring-config-esjob.xml"></import>
+    <import resource="config/spring-config-ump.xml"></import>
+</beans>
+
+
+

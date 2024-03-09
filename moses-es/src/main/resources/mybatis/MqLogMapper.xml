@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.biyao.moses.pdc.mapper.MqLogMapper">
+    <resultMap  id="baseResultMap" type="com.biyao.moses.pdc.domain.MqLogDomain">
+        <id column="uuid" jdbcType="BIGINT" property="uuid"/>
+        <result column="type" jdbcType="TINYINT" property="type"/>
+        <result column="mq_context" jdbcType="LONGVARCHAR" property="mqContext"/>
+        <result column="mq_tag" jdbcType="VARCHAR" property="mqTag"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="consume_succ_time" jdbcType="TIMESTAMP" property="consumeSuccTime"/>
+        <result column="reconsume_times" jdbcType="INTEGER" property="reconsumeTimes"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="status" jdbcType="TINYINT" property="status"/>
+        <result column="send_msg_time" jdbcType="TIMESTAMP" property="sendMsgTime"/>
+        <result column="business_id" jdbcType="VARCHAR" property="businessId"/>
+    </resultMap>
+
+    <sql id="selectColumn">
+	 	uuid,
+		type,
+		mq_context,
+		mq_tag,
+		create_time,
+		consume_succ_time,
+		reconsume_times,
+		remark,
+		send_msg_time,
+		business_id
+	 </sql>
+
+    <select id="selectByUuid" resultMap="baseResultMap">
+        select
+        <include refid="selectColumn"/>
+        from mq_log
+        where uuid = #{uuid}
+    </select>
+
+    <select id="selectByUuids" resultMap="baseResultMap">
+        select
+        <include refid="selectColumn"/>
+        from mq_log
+        where uuid in
+        <foreach collection="uuids" open="(" separator="," close=")" item="item">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectByUuidAndMsgType" resultMap="baseResultMap">
+        select
+        <include refid="selectColumn"/>
+        from mq_log
+        where uuid = #{uuid}
+        and  msg_type = #{msgType}
+    </select>
+
+
+    <select id="selectBySendMsgTimeExMqTag" resultMap="baseResultMap">
+        select
+        <include refid="selectColumn"/>
+        from mq_log
+        where
+        mq_topic = #{mqTopic}
+        and send_msg_time &gt;= #{beginTime}
+        and send_msg_time &lt; #{endTime}
+    </select>
+
+    <select id="countBySendMsgTime" resultType="java.lang.Integer">
+        select
+        count(1)
+        from mq_log
+        <where>
+            mq_topic = #{mqTopic}
+            and send_msg_time &gt;= #{beginTime}
+            and send_msg_time &lt; #{endTime}
+            <if	test="tags != null and tags.size > 0">
+                and mq_tag in
+                <foreach collection="tags" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+    <select id="selectBySendMsgTime" resultMap="baseResultMap">
+        select
+        <include refid="selectColumn"/>
+        from mq_log
+        where
+        mq_topic = #{mqTopic}
+        <if test="mqTag != null">
+            and mq_tag = #{mqTag}
+        </if>
+        and send_msg_time &gt;= #{beginTime}
+        and send_msg_time &lt; #{endTime}
+    </select>
+
+    <!-- 查询消费成功的日志 -->
+    <select id="selectSuccessMsgByTime" resultMap="baseResultMap">
+        select
+        <include refid="selectColumn"/>
+        from mq_log
+        where
+        mq_topic = #{mqTopic}
+        <if test="mqTag != null">
+            and mq_tag = #{mqTag}
+        </if>
+        and status = 1
+        and send_msg_time &gt;= #{beginTime}
+        and send_msg_time &lt; #{endTime}
+    </select>
+
+    <!-- 更新消费成功日志 -->
+    <update id="updateSuccess" parameterType="com.biyao.moses.pdc.domain.MqLogDomain" >
+        UPDATE mq_log
+        set
+        consume_succ_time = #{consumeSuccTime}
+        ,reconsume_times = #{reconsumeTimes}
+        ,status = 1
+        <if test="remark != null">
+            ,remark = #{remark}
+        </if>
+        where uuid = #{uuid}
+    </update>
+
+    <!-- 更新消费失败日志 -->
+    <update id="updateFailure" parameterType="com.biyao.moses.pdc.domain.MqLogDomain" >
+        UPDATE mq_log
+        set
+        reconsume_times = #{reconsumeTimes}
+        ,status = 0
+        <if test="remark != null">
+            ,remark = #{remark}
+        </if>
+        where uuid = #{uuid}
+    </update>
+
+    <!-- 插入 -->
+    <insert id="insert" parameterType="com.biyao.moses.pdc.domain.MqLogDomain">
+		INSERT INTO mq_log (
+		uuid,
+		type,
+		mq_context,
+		mq_tag,
+		create_time,
+		consume_succ_time,
+		reconsume_times,
+		remark,
+		status,
+		send_msg_time,
+		mq_topic,
+		business_id
+		)
+		VALUES (
+			#{uuid,jdbcType=VARCHAR},
+			#{type,jdbcType=TINYINT},
+			#{mqContext,jdbcType=LONGVARCHAR},
+			#{mqTag,jdbcType=VARCHAR},
+			NOW(),
+			#{consumeSuccTime,jdbcType=TIMESTAMP},
+			#{reconsumeTimes,jdbcType=INTEGER},
+			#{remark,jdbcType=VARCHAR},
+			#{status,jdbcType=TINYINT},
+			#{sendMsgTime,jdbcType=TIMESTAMP},
+			#{mqTopic,jdbcType=VARCHAR},
+			#{businessId,jdbcType=VARCHAR}
+			)
+	</insert>
+</mapper>

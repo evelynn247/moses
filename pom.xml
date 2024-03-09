@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.4.10</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.biyao.moses</groupId>
+    <artifactId>moses-parent-online</artifactId>
+    <version>1.0.0</version>
+    <name>moses-parent-online</name>
+    <packaging>pom</packaging>
+    <modules>
+        <module>moses-match-online</module>
+        <module>moses-es</module>
+        <module>moses-api-online</module>
+        <module>moses-common-online</module>
+    </modules>
+
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
+
+    <!-- springboot 自带的包-->
+    <dependencies>
+        <!-- 引入springboot log4j2依赖 -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>

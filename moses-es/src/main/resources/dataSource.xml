@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+    <!-- mysql start -->
+<!--    <bean id="jdbc.dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init"-->
+<!--          destroy-method="close">-->
+<!--        <property name="driverClassName" value="${jdbc.driverClassName}" />-->
+<!--        <property name="url" value="${jdbc.url}" />-->
+<!--        <property name="username" value="${jdbc.username}" />-->
+<!--        <property name="password" value="${jdbc.password}" />-->
+<!--        <property name="initialSize" value="${jdbc.initialSize}" />-->
+<!--        <property name="minIdle" value="${jdbc.minIdle}" />-->
+<!--        <property name="maxActive" value="${jdbc.maxActive}" />-->
+<!--        <property name="maxWait" value="${jdbc.maxWait}" />-->
+<!--        <property name="timeBetweenEvictionRunsMillis" value="${jdbc.timeBetweenEvictionRunsMillis}" />-->
+<!--        <property name="minEvictableIdleTimeMillis" value="${jdbc.minEvictableIdleTimeMillis}" />-->
+<!--        <property name="testWhileIdle" value="true" />-->
+<!--        <property name="validationQuery" value="select 1" />-->
+<!--        <property name="testOnBorrow" value="false" />-->
+<!--        <property name="testOnReturn" value="false" />-->
+<!--        <property name="poolPreparedStatements" value="true" />-->
+<!--        <property name="maxPoolPreparedStatementPerConnectionSize" value="20" />-->
+<!--        <property name="filters" value="stat" />-->
+<!--        <property name="removeAbandoned" value="true" />-->
+<!--        <property name="removeAbandonedTimeout" value="${jdbc.removeAbandonedTimeout}" />-->
+<!--        <property name="logAbandoned" value="true" />-->
+<!--    </bean>-->
+<!--    <bean id="mysqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">-->
+<!--        <property name="dataSource" ref="jdbc.dataSource"/>-->
+<!--        <property name="mapperLocations" value="classpath:mybatis/*.xml"/>-->
+<!--    </bean>-->
+<!--    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">-->
+<!--        <property name="sqlSessionFactoryBeanName" value="mysqlSessionFactory"/>-->
+<!--        <property name="basePackage" value="com.biyao.moses.pdc.mapper"/>-->
+<!--    </bean>-->
+<!--    <bean id="mysqlTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">-->
+<!--        <property name="dataSource" ref="jdbc.dataSource"/>-->
+<!--    </bean>-->
+<!--    <tx:annotation-driven transaction-manager="mysqlTransactionManager"/>-->
+<!--    &lt;!&ndash; mysql end &ndash;&gt;-->
+
+
+</beans>

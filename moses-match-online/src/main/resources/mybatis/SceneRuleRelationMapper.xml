@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.biyao.moses.pdc.mapper.SceneRuleRelationMapper">
+
+    <resultMap  id="baseSceneRuleResultMap" type="com.biyao.moses.pdc.domain.SceneRuleRelationPo">
+        <id column="rule_id" jdbcType="VARCHAR" property="ruleId"/>
+        <result column="scene_id" jdbcType="VARCHAR" property="sceneId"/>
+        <result column="match_rule" jdbcType="VARCHAR" property="matchRule"/>
+    </resultMap>
+
+    <sql id="selectColumn">
+	 	rule_id,
+		scene_id,
+		match_rule
+	 </sql>
+
+    <select id="getAllSceneRule" resultMap="baseSceneRuleResultMap">
+        select
+        <include refid="selectColumn"/>
+        from scene_rule_relation
+        where status=1
+    </select>
+</mapper>
