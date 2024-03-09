@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://code.alibabatech.com/schema/dubbo
+       http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<!-- 提供方应用信息，用于计算依赖关系 -->
+	<dubbo:application name="moses-match" />
+
+	<!-- 使用zookeeper注册中心暴露服务地址 -->
+	<dubbo:registry protocol="zookeeper"
+		address="${spring.dubbo.registry.address}" timeout="50000" />
+
+
+	<dubbo:reference id="productDubboService"
+		interface="com.biyao.client.service.IProductDubboService" group="${pdc.group}"
+		version="${pdc.version}" timeout="30000" retries="1" check="false" />
+
+	<dubbo:reference id="experimentConfigDubboService"
+					 interface="com.biyao.client.service.IExperimentConfigDubboService" group="${pdc.group}"
+					 version="${pdc.version}" timeout="30000" retries="1" check="false" />
+
+	<dubbo:reference id="materialQueryDubboService"
+					 interface="com.biyao.cms.client.material.service.IMaterialQueryDubboService" group="${pdc.group}"
+					 version="1.0" timeout="5000" retries="1" check="false" />
+
+	<dubbo:reference id="businessTocDubboService"
+					 interface="com.biyao.upc.dubbo.client.business.toc.IBusinessTocDubboService" group="${upc.group}"
+					 version="${upc.version}" timeout="500" retries="1" check="false" />
+
+    <dubbo:reference id="exclusiveService"
+                     interface="com.biyao.cms.client.newcustomer.service.IExclusiveService"
+                     version="${cms.version}" group="${cms.group}" owner="cmsapi"
+                     timeout="5000" check="false"/>
+
+    <dubbo:reference id="productBaseTagService"
+                     interface="com.biyao.tag.client.productTag.IProductBaseTagService"
+                     version="${tag.version}" group="${tag.group}"
+                     timeout="5000" check="false"/>
+
+</beans>

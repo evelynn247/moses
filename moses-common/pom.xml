@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>moses-common</artifactId>
+    <version>1.0.0</version>
+    <name>moses-common</name>
+    <packaging>jar</packaging>
+
+    <parent>
+        <groupId>com.biyao.moses</groupId>
+        <artifactId>moses-parent</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+    <properties>
+        <pdc-client.version>1.2.8-productManagerV1.0.0-SNAPSHOT</pdc-client.version>
+    </properties>
+
+    <dependencies>
+        <!-- api -->
+        <dependency>
+            <groupId>com.biyao.moses</groupId>
+            <artifactId>moses-base-api</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.biyao.search</groupId>
+            <artifactId>search-common</artifactId>
+            <version>2.1.1</version>
+        </dependency>
+        <!-- 日期工具类 joda time -->
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>2.9.9</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.by</groupId>
+            <artifactId>profiler-annotation</artifactId>
+            <version>2.1-SNAPSHOT</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>22.0</version>
+        </dependency>
+
+        <!-- 商品缓存使用dubbo jar包 -->
+        <dependency>
+            <groupId>com.biyao</groupId>
+            <artifactId>pdc-client</artifactId>
+            <version>${pdc-client.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.biyao.search</groupId>
+            <artifactId>search-product-dubbo-client</artifactId>
+            <version>1.0.13-plantform1.0</version>
+        </dependency>
+
+        <!-- CMS前台类目 -->
+        <dependency>
+            <groupId>com.biyao</groupId>
+            <artifactId>cms-dubbo-client</artifactId>
+            <version>3.50.0-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>javax.servlet-api</artifactId>
+                </exclusion>
+
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.biyao.dclog</groupId>
+            <artifactId>dclog-logger</artifactId>
+            <version>1.1.0</version>
+        </dependency>
+    </dependencies>
+</project>

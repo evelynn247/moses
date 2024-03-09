@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://code.alibabatech.com/schema/dubbo
+       http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!-- 提供方应用信息，用于计算依赖关系 -->
+    <dubbo:application name="moses-queue"/>
+
+    <!-- 使用zookeeper注册中心暴露服务地址 -->
+    <dubbo:registry protocol="zookeeper" address="${spring.dubbo.registry.address}" timeout="50000"/>
+    
+                     
+    <dubbo:reference id="productDubboService" interface="com.biyao.client.service.IProductDubboService"
+                     group="${dubbo.pdc.group}"
+                     version="${dubbo.pdc.version}" timeout="30000" retries="1" check="false"/>
+
+    <dubbo:reference id="exclusiveService"
+                     interface="com.biyao.cms.client.newcustomer.service.IExclusiveService"
+                     version="${dubbo.cms.version}" group="${dubbo.cms.group}" owner="cmsapi"
+                     timeout="3000" check="false"/>
+
+    <dubbo:reference id="productBaseTagService"
+                     interface="com.biyao.tag.client.productTag.IProductBaseTagService"
+                     version="${dubbo.tag.version}" group="${dubbo.tag.group}"
+                     timeout="3000" check="false"/>
+                     
+   	<dubbo:reference id="ucServerService"
+				 interface="com.biyao.uc.service.UcServerService"
+				 protocol="dubbo"
+				 timeout="200"
+				 retries="0"
+				 check="false"
+				 group="${dubbo.uc.group}"
+				 version="${dubbo.uc.version}" />
+				 
+    <dubbo:reference id="iBOrderDetailQueryService"
+				 interface="com.biyao.orderquery.client.tob.IBOrderDetailQueryService"
+				 protocol="dubbo"
+				 timeout="3000"
+				 retries="0"
+				 check="false"
+				 group="${dubbo.order.group}"
+				 version="${dubbo.order.version}" /> 			               
+
+</beans>

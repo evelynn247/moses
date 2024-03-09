@@ -1,0 +1,9 @@
+com\biyao\moses\mosesmatch\MosesMatchApplicationTests.class
+com\biyao\moses\service\imp\TestDailyNewMatch.class
+com\biyao\moses\service\imp\TestHomeSliderMatch.class
+com\biyao\moses\consumer\MqProducer.class
+com\biyao\moses\service\imp\TestIbcfMatch.class
+com\biyao\moses\service\imp\TestSwiperPicMatch.class
+com\biyao\moses\util\FilterTest.class
+com\biyao\moses\consumer\UserViewProductConsumerTest.class
+com\biyao\moses\service\imp\TestSliderMidPageMatch.class

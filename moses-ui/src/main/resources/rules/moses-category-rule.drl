@@ -1,0 +1,43 @@
+
+package com.biyao.moses.rules
+
+import com.biyao.moses.model.drools.RuleFact;
+import com.biyao.moses.util.ApplicationContextUtil
+import  com.biyao.moses.rules.RuleContext
+import com.biyao.moses.model.drools.DroolsTotalTemplateInfo
+import java.util.List
+import com.biyao.moses.rules.impl.*
+import com.alibaba.fastjson.JSON
+import com.biyao.moses.util.ApplicationContextProvider
+dialect  "java"
+global    RuleContext ruleContext;
+global    List<DroolsTotalTemplateInfo> totalTemplateInfoList;
+
+/*
+* 排序规则
+*/
+
+/*
+  相似类目隔断规则
+*/
+rule "category-similarCategory"
+agenda-group "category"
+lock-on-active true
+    when
+        $ruleFact :RuleFact (categoryPartition == 1);
+    then
+    List<com.biyao.moses.model.template.entity.TotalTemplateInfo> totalTemplateInfos = ApplicationContextUtil.getBean(SimilarCategoryRuleImpl.class).ruleRank(ruleContext);
+     totalTemplateInfoList.addAll(totalTemplateInfos);
+end
+
+/*
+  个性化隔断规则
+*/
+rule "category-personalizationRule"
+agenda-group "category"
+lock-on-active true
+    when
+        $ruleFact :RuleFact (categoryPartition == 2);
+    then
+         List<com.biyao.moses.model.template.entity.TotalTemplateInfo> totalTemplateInfos = ApplicationContextUtil.getBean(PersonalizationRuleImpl.class).ruleRank(ruleContext);
+end

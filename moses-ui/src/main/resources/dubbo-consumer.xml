@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://code.alibabatech.com/schema/dubbo
+       http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!-- 提供方应用信息，用于计算依赖关系 -->
+    <dubbo:application name="moses-ui"/>
+
+    <!-- 使用zookeeper注册中心暴露服务地址 -->
+    <dubbo:registry protocol="zookeeper" address="${spring.dubbo.registry.address}" timeout="50000"/>
+
+    <!-- 需要特权金服务 -->
+    <dubbo:reference id="shopRedBagPrivilegeBagService" interface="com.biyao.mac.client.redbag.shop.privilegebag.service.IShopRedBagPrivilegeBagService"
+                     version="${mac.version}" group="${mac.group}" timeout="5000" check="false" retries="2" />
+
+	<!-- 私人手冲咖啡服务 -->
+    <dubbo:reference id="productionService" interface="com.biyao.productclient.agent.product.IProductionService"
+                     version="${coffee.version}" group="${coffee.group}" timeout="5000" check="false" retries="2" />
+                     
+    <dubbo:reference id="productDubboService" interface="com.biyao.client.service.IProductDubboService"
+                     group="${pdc.group}"
+                     version="${pdc.version}" timeout="30000" retries="1" check="false"/>
+
+    <dubbo:reference id="experimentConfigDubboService" interface="com.biyao.client.service.IExperimentConfigDubboService"
+                     group="${pdc.group}"
+                     version="${pdc.version}" timeout="30000" retries="1" check="false"/>
+
+    <!-- 获取首页前台类目导航 -->
+    <dubbo:reference id="homePageDubboService" interface="com.biyao.cms.client.homepage.service.IHomePageDubboService"
+                     group="${cms.group}"
+                     version="${cms.version}" timeout="30000" retries="1" check="false"/>
+    <!-- 获取首页前台类目导航 -->
+    <dubbo:reference id="categoryDubboService" interface="com.biyao.cms.client.category.service.ICategoryDubboService"
+                     group="${cms.group}"
+                     version="${cms.version}" timeout="30000" retries="1" check="false"/>
+
+    <!-- 获取CMS素材对应值 -->
+    <dubbo:reference id="materialQueryDubboService" interface="com.biyao.cms.client.material.service.IMaterialQueryDubboService"
+                     group="${cms.group}"
+                     version="${cms.version}" timeout="3000" retries="1" check="false"/>
+
+    <dubbo:reference id="businessTocDubboService"
+                     interface="com.biyao.upc.dubbo.client.business.toc.IBusinessTocDubboService" group="${upc.group}"
+                     version="${upc.version}" timeout="500" retries="1" check="false" />
+
+    <dubbo:reference id="ucServerService"
+                     interface="com.biyao.uc.service.UcServerService" protocol="dubbo" timeout="50" retries="1" check="false"
+                     group="${dubbo.uc.group}" version="${dubbo.uc.version}"/>
+
+    <dubbo:reference id="pushTokenDubboService"
+                     interface="com.biyao.msgapi.dubbo.client.pushtoken.IPushTokenDubboService" protocol="dubbo" timeout="50" retries="2" check="false"
+                     group="${dubbo.pushToken.group}" version="${dubbo.pushToken.version}"/>
+
+    <dubbo:reference id="switchConfigDubboService" interface="com.biyao.client.service.ISwitchConfigDubboService"
+                     group="${pdc.group}"
+                     version="${pdc.version}" timeout="2000" retries="1" check="false"/>
+
+    <dubbo:reference id="recommendOperationalConfigDubboService" interface="com.biyao.client.service.IRecommendOperationalConfigDubboService"
+                     group="${pdc.group}"
+                     version="${pdc.version}" timeout="2000" retries="1" check="false"/>
+
+    <dubbo:reference id="recommendManualSourceConfigDubboService" interface="com.biyao.client.service.IRecommendManualSourceDubboService"
+                     group="${pdc.group}"
+                     version="${pdc.version}" timeout="2000" retries="1" check="false"/>
+    <!-- 商品组服务 复购V2.5新增 对接人：cms  帕伊-->
+    <dubbo:reference id="groupProductToCDubboService" interface="com.biyao.magic.dubbo.client.toc.repurchase.service.GroupProductToCDubboService"
+                     group="${productGroup.group}"
+                     version="${productGroup.version}" timeout="100" retries="0" check="false"/>
+    <!-- 注释直播相关代码 -->
+    <!-- 直播管理中心LB 正在直播中的商品批量查询接口 -->
+<!--    <dubbo:reference id="liveRoomRelationProductService" interface="com.biyao.vshow.client.product.IRelationProductToCService"-->
+<!--                     version="${lb.version}" group="${lb.group}" timeout="50" check="false" retries="0"/>-->
+
+</beans>

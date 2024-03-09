@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="OFF">
+
+	<Properties>
+		<Property name="LOG_HOME">/usr/local/biyaolog/moses.biyao.com</Property>
+		<Property name="PROJECT_NAME">mosesui</Property>
+		<Property name="LOG_PATTERN">[%d{yyyy-MM-dd HH:mm:ss.SSS} %-5p] [%t] (%c:%L) - %m%n</Property>
+	</Properties>
+
+
+	<appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="${LOG_PATTERN}" />
+		</Console>
+		<RollingFile name="RollingFile"
+			fileName="${sys:LOG_HOME}/${PROJECT_NAME}.log" filePattern="${sys:LOG_HOME}/${PROJECT_NAME}.log.%d{yyyy-MM-dd}.log">
+			<PatternLayout pattern="${LOG_PATTERN}" />
+			<Policies>
+				<!-- 每天一个文件 -->
+				<TimeBasedTriggeringPolicy modulate="true"	interval="1" />
+			</Policies>
+
+			<DefaultRolloverStrategy max="30">
+				<Delete basePath="${sys:LOG_HOME}" maxDepth="1">
+					<IfFileName glob="${PROJECT_NAME}.log.*" />
+					<IfLastModified age="30d" />
+				</Delete>
+			</DefaultRolloverStrategy>
+
+		</RollingFile>
+
+	</appenders>
+	<loggers>
+		<logger name="com.biyao.moses" level="debug" additivity="false">
+			<!--<appender-ref ref="Console" />-->
+			<appender-ref ref="RollingFile" />
+		</logger>
+		<root level="ERROR" additivity="false">
+			<!--<appender-ref ref="RollingFile" />-->
+			<appender-ref ref="Console" />
+		</root>
+	</loggers>
+</configuration>

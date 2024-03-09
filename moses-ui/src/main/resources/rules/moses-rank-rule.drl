@@ -1,0 +1,26 @@
+package com.biyao.moses.rules
+
+import com.biyao.moses.model.drools.RuleFact;
+import com.biyao.moses.util.ApplicationContextUtil
+import com.biyao.moses.params.rank2.RankRequest2;
+import com.biyao.moses.service.MatchAndRankService2
+import com.biyao.moses.params.rank2.RankResponse2
+import com.alibaba.fastjson.JSON
+dialect  "java"
+global  RankRequest2 rankRequest2;
+global  RankResponse2 rankResponse2;
+
+/*
+* 排序规则
+*/
+rule "rank"
+agenda-group "rank"
+lock-on-active true
+    when
+        $ruleEntity :RuleFact ( punishFactor != 0 || priceFactor !=0);
+    then
+       RankResponse2 rankResponse = ApplicationContextUtil.getBean(MatchAndRankService2.class).rank(rankRequest2);
+       rankResponse2.setRankItem2List(rankResponse.getRankItem2List());
+       rankResponse2.setExpId(rankResponse.getExpId());
+end
+

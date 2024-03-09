@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="OFF">
+
+	<Properties>
+		<Property name="LOG_HOME">/usr/local/biyaolog/mosesconf.biyao.com</Property>
+		<Property name="PROJECT_NAME">mosesconf</Property>
+		<Property name="LOG_PATTERN">%d{HH:mm:ss.SSS} %-5level%class{36} %L %M - %msg%xEx%n</Property>
+	</Properties>
+
+
+	<appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="${LOG_PATTERN}" />
+		</Console>
+		<RollingFile name="RollingFile"
+			fileName="${sys:LOG_HOME}/${PROJECT_NAME}.log" filePattern="${sys:LOG_HOME}/${PROJECT_NAME}_%d{yyyy_MM_dd}.log">
+			<PatternLayout pattern="${LOG_PATTERN}" />
+			<Policies>
+				<!-- 每天一个文件 -->
+				<TimeBasedTriggeringPolicy modulate="true"	interval="1" />
+			</Policies>
+
+			<DefaultRolloverStrategy max="30">
+				<Delete basePath="${sys:LOG_HOME}" maxDepth="1">
+					<IfFileName glob="${PROJECT_NAME}_*.log" />
+					<IfLastModified age="30d" />
+				</Delete>
+			</DefaultRolloverStrategy>
+
+		</RollingFile>
+
+	</appenders>
+	<Appenders>
+		<File name="BackupFile" fileName="${sys:LOG_HOME}/backup.log">
+			<PatternLayout>
+				<Pattern>[%d{yyyy-MM-dd HH:mm:ss}] %m%n</Pattern>
+			</PatternLayout>
+		</File>
+	</Appenders>
+<!--	<appenders>-->
+<!--		<Console name="Console" target="SYSTEM_OUT">-->
+<!--			<PatternLayout pattern="${LOG_PATTERN}" />-->
+<!--		</Console>-->
+<!--		<RollingFile name="BackupFile"-->
+<!--					 fileName="${sys:LOG_HOME}/${PROJECT_NAME}_backup.log">-->
+<!--			<PatternLayout pattern="${LOG_PATTERN}" />-->
+<!--		</RollingFile>-->
+
+<!--	</appenders>-->
+	<loggers>
+		<logger name="com.biyao.moses" level="debug" additivity="false">
+			<appender-ref ref="Console" />
+			<appender-ref ref="RollingFile" />
+		</logger>
+		<logger name="com.biyao.moses.controller" level="INFO"
+			additivity="false">
+			<appender-ref ref="Console" />
+			<appender-ref ref="RollingFile" />
+		</logger>
+		<root level="INFO">
+			<appender-ref ref="RollingFile" />
+			<appender-ref ref="Console" />
+		</root>
+		<logger name="moses.backup" level="INFO"
+				additivity="false">
+			<appender-ref ref="BackupFile" />
+		</logger>
+	</loggers>
+</configuration>

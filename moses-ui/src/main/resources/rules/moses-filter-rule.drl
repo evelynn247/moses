@@ -1,0 +1,84 @@
+package com.biyao.moses.rules
+
+import java.util.HashMap
+import com.biyao.moses.model.drools.RuleFact;
+import org.springframework.context.ApplicationContext
+import com.biyao.moses.drools.impl.*;
+import com.biyao.moses.util.ApplicationContextUtil
+import com.biyao.moses.drools.FilterContext
+import com.biyao.moses.model.match2.MatchItem2
+import java.util.List
+dialect  "java"
+global FilterContext filterContext;
+
+/*
+* 性别 季节 召回数量控制 复购周期 30天已购买
+*/
+
+/*
+  性别过滤规则
+*/
+rule "sex_filter"
+agenda-group "sex_filter"
+lock-on-active true
+    when
+        $RuleEntity :RuleFact (sexFilter==1);
+    then
+    List<MatchItem2>  matchItem2List = ApplicationContextUtil.getBean(SexFilter.class).filter(filterContext);
+    filterContext.setMatchItem2List(matchItem2List);
+end
+
+/*
+  季节过滤规则
+*/
+rule "season_filter"
+agenda-group "season_filter"
+lock-on-active true
+    when
+        $r : RuleFact(seasonFilter==1);
+    then
+     List<MatchItem2>  matchItem2List =  ApplicationContextUtil.getBean(SeasonFilter.class).filter(filterContext);
+      filterContext.setMatchItem2List(matchItem2List);
+end
+
+/*
+  召回数量过滤规则
+  无条件
+*/
+
+rule "expect_num_max"
+agenda-group "expect_num_max"
+lock-on-active true
+    when
+    then
+       List<MatchItem2>  matchItem2List = ApplicationContextUtil.getBean(ExpectMaxNumFilter.class).filter(filterContext);
+       filterContext.setMatchItem2List(matchItem2List);
+end
+
+/*
+过滤30天已购买的商品
+*/
+
+rule "repurchase_filter_30day"
+agenda-group "repurchase_filter"
+lock-on-active true
+    when
+    $r : RuleFact(repurchaseFilter == 1);
+    then
+       List<MatchItem2>  matchItem2List = ApplicationContextUtil.getBean(Days30BuyFilter.class).filter(filterContext);
+       filterContext.setMatchItem2List(matchItem2List);
+end
+
+/*
+  复购周期过滤
+*/
+
+rule "repurchase_filter_Cycle"
+agenda-group "repurchase_filter"
+lock-on-active true
+    when
+    $r : RuleFact(repurchaseFilter == 2);
+    then
+      List<MatchItem2>  matchItem2List =ApplicationContextUtil.getBean(ReBuyCycleFilter.class).filter(filterContext);
+      filterContext.setMatchItem2List(matchItem2List);
+end
