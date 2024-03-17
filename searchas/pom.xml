@@ -1,0 +1,408 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.biyao.search</groupId>
+	<artifactId>search-ui</artifactId>
+	<version>1.0.0</version>
+	<packaging>war</packaging>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.by</groupId>
+			<artifactId>profiler-annotation</artifactId>
+			<version>2.0-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>spring-beans</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-context</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-core</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!-- biyao nova -->
+		<dependency>
+			<groupId>com.biyao.nova</groupId>
+			<artifactId>nova-service</artifactId>
+			<version>1.3.3</version>
+		</dependency>
+		<!-- 好友关系 -->
+		<dependency>
+			<groupId>com.biyao.friends.api</groupId>
+			<artifactId>friends-api</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<!-- biyao search -->
+		<dependency>
+			<groupId>com.biyao.search</groupId>
+			<artifactId>search-as-service</artifactId>
+			<version>2.1.0-byCreatorV1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.biyao.search</groupId>
+			<artifactId>search-common</artifactId>
+			<version>2.1.8-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.biyao.search</groupId>
+			<artifactId>search-ui-service</artifactId>
+			<version>1.2.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.biyao.search</groupId>
+			<artifactId>search-bs-service</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+
+		<!-- experiment -->
+		<dependency>
+			<groupId>com.biyao.experiment</groupId>
+			<artifactId>experiment-framework</artifactId>
+			<version>1.2.0</version>
+		</dependency>
+
+		<!-- 排行服务 -->
+		<dependency>
+			<groupId>com.biyao</groupId>
+			<artifactId>rank-dubbo-client</artifactId>
+			<version>1.5-SNAPSHOT</version>
+		</dependency>
+
+		<!-- 订单服务 -->
+		<dependency>
+			<groupId>com.biyao</groupId>
+			<artifactId>borderquery-dubbo-client</artifactId>
+			<version>1.1.1-SNAPSHOT</version>
+		</dependency>
+
+		<!-- mac服务依赖 -->
+		<dependency>
+            <groupId>com.biyao</groupId>
+            <artifactId>mac-dubbo-client</artifactId>
+            <version>1.24.0-SNAPSHOT</version>
+        </dependency>
+
+        <!-- cms服务依赖 -->
+         <dependency>
+            <groupId>com.biyao</groupId>
+            <artifactId>cms-dubbo-client</artifactId>
+            <version>3.19.0-SNAPSHOT</version>
+        </dependency>
+
+		<!-- upc服务依赖 -->
+		<dependency>
+            <groupId>com.biyao</groupId>
+            <artifactId>upc-dubbo-client</artifactId>
+            <version>1.1.4-SNAPSHOT</version>
+        </dependency>
+
+		<!-- disconf -->
+		<dependency>
+			<groupId>com.baidu.disconf</groupId>
+			<artifactId>disconf-client</artifactId>
+			<version>2.6.37</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.by.configs</groupId>
+			<artifactId>by-configs-util</artifactId>
+			<version>1.0</version>
+		</dependency>
+
+		<!-- dclog -->
+		<dependency>
+			<groupId>com.biyao.dclog</groupId>
+			<artifactId>dclog-logger</artifactId>
+			<version>1.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.rocketmq</groupId>
+			<artifactId>rocketmq-client</artifactId>
+			<version>4.0.0-incubating</version>
+		</dependency>
+
+		<!-- dubbo -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>dubbo</artifactId>
+			<version>2.8.4a</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>4.3.0.RELEASE</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>4.3.0.RELEASE</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.101tec</groupId>
+			<artifactId>zkclient</artifactId>
+			<version>0.8</version>
+			<exclusions>
+				<!-- <exclusion> <groupId>log4j</groupId> <artifactId>log4j</artifactId>
+					</exclusion> -->
+				<exclusion>
+					<groupId>org.apache.zookeeper</groupId>
+					<artifactId>zookeeper</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.javassist</groupId>
+			<artifactId>javassist</artifactId>
+			<version>3.20.0-GA</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jaxrs</artifactId>
+			<version>3.0.7.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-client</artifactId>
+			<version>3.0.7.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>1.0.0.GA</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jackson-provider</artifactId>
+			<version>3.0.7.Final</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jdk-http</artifactId>
+			<version>3.0.7.Final</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+
+		<!-- 如果要使用tomcat server -->
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-core</artifactId>
+			<version>8.0.11</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-logging-juli</artifactId>
+			<version>8.0.11</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.netty</groupId>
+			<artifactId>netty</artifactId>
+			<version>3.2.5.Final</version>
+		</dependency>
+
+		<!-- helpers -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>21.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.24</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-configuration</groupId>
+			<artifactId>commons-configuration</artifactId>
+			<version>2.2.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>1.9.2</version>
+		</dependency>
+
+		<!-- logging -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.23</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.23</version>
+		</dependency>
+
+		<!-- redis -->
+		<dependency>
+			<groupId>com.by</groupId>
+			<artifactId>bimdb</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		<!-- test -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+		</dependency>
+		<!-- 商品服务Client包 -->
+		<dependency>
+			<groupId>com.by</groupId>
+			<artifactId>product-soa-client</artifactId>
+			<version>1.7.9-sirenkafeiguan-SNAPSHOT</version>
+		</dependency>
+		<!-- 阶梯团 -->
+		<dependency>
+			<groupId>com.biyao</groupId>
+			<artifactId>gba-dubbo-client</artifactId>
+			<version>1.4.8-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.0</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- pdc client -->
+		<dependency>
+			<groupId>com.biyao</groupId>
+			<artifactId>pdc-client</artifactId>
+			<version>1.2.7-byCreatorV1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<!-- facet sdk -->
+		<dependency>
+			<groupId>com.biyao.search</groupId>
+			<artifactId>search-facet</artifactId>
+			<version>1.3-SNAPSHOT</version>
+		</dependency>
+
+		<!-- uc -->
+		<dependency>
+			<groupId>com.biyao.uc.service</groupId>
+			<artifactId>uc-service</artifactId>
+			<version>1.1-SNAPSHOT</version>
+		</dependency>
+		<!-- 大运河V1.0 -->
+		<dependency>
+			<groupId>com.biyao</groupId>
+			<artifactId>css-dubbo-client</artifactId>
+			<version>1.8.0-theGrandCanal1.2-SNAPSHOT</version>
+		</dependency>
+
+		<!-- dclog升级 -->
+		<dependency>
+			<groupId>com.biyao</groupId>
+			<artifactId>dclog-producer</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.kafka</groupId>
+			<artifactId>kafka_2.11</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.kafka</groupId>
+			<artifactId>kafka-clients</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+
+		<!-- searchbs -->
+		<dependency>
+			<groupId>com.biyao.search</groupId>
+			<artifactId>search-bs-service</artifactId>
+			<version>2.1.2</version>
+		</dependency>
+
+		<!-- derive sdk -->
+		<dependency>
+			<groupId>com.biyao</groupId>
+			<artifactId>deriveproduct-sdk</artifactId>
+			<version>1.0.0-deriveProductSDK-SNAPSHOT</version>
+		</dependency>
+		<!-- 直播管理中心LB -->
+<!--		<dependency>
+			<groupId>com.biyao</groupId>
+			<artifactId>vshow-client</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>-->
+
+		<!-- mag -->
+		<dependency>
+			<groupId>com.biyao</groupId>
+			<artifactId>mag-dubbo-client</artifactId>
+			<version>1.6-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-test</artifactId>
+				<version>4.3.0.RELEASE</version>
+				<scope>test</scope>
+		</dependency>
+		<!-- 新增服务maven依赖,对接团队前台商品服务，对接人：马潮、欧佳伟 -->
+		<dependency>
+			<groupId>com.biyao</groupId>
+			<artifactId>product2c-dubbo-client</artifactId>
+			<version>1.24.0_rebuy2.5-SNAPSHOT</version>
+		</dependency>
+		<!-- 新增服务maven依赖,对接卡券系统，对接人：刘悦 -->
+		<dependency>
+			<groupId>com.biyao</groupId>
+			<artifactId>couponquery2c-dubbo-client</artifactId>
+			<version>1.4.0-SNAPSHOT</version>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<finalName>search.biyao.com_bycreatorV1.0.0_zzm</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+					<encoding>utf8</encoding>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

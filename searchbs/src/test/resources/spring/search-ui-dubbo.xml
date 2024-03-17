@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://code.alibabatech.com/schema/dubbo
+       http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!-- 提供方应用信息，用于计算依赖关系 -->
+    <dubbo:application name="search-ui"/>
+
+    <!-- dubbo中的rest协议默认将采用80端口，  Dubbo中的rest服务默认都是采用http长连接来访问，如果想切换为短连接keepalive="false"-->
+    <!-- contextpath必须保持跟tomcat发布工程名称一致 -->
+    <dubbo:protocol name="rest" port="${search_ui.port}" server="${search_ui.server}" keepalive="false"/>
+
+    <!-- 使用zookeeper注册中心暴露服务地址 -->
+    <dubbo:registry protocol="zookeeper" address="${zk.address}" timeout="50000"/>
+    
+    <!-- 用dubbo协议在20880端口暴露服务 -->
+    <!-- <dubbo:protocol name="dubbo" port="20880" /> -->
+    <dubbo:protocol name="dubbo" port="-1" charset="UTF-8" payload="16777216" threads="400" />
+
+    <!--同步大V数据接口-->
+    <dubbo:reference id="vDataDubboService" interface="com.biyao.css.dubbo.client.sync.ISyncSearchSystemToBService"
+                     group="${srm.group}" version="${srm.version}" timeout="5000" retries="1" check="false"/>
+    <!-- 直播管理中心LB 正在直播中的商品批量查询接口 -->
+<!--    <dubbo:reference id="liveManagerService" interface="com.biyao.vshow.client.product.IRelationProductToCService"
+                     version="${lb.version}" group="${lb.group}" timeout="50" check="false" retries="0"/>-->
+    <!-- 需要的服务 -->
+    <dubbo:reference id="asSearchService" interface="com.biyao.search.as.service.ASSearchService"
+        version="${search_as.version}" group="${search_as.group}" timeout="2000" check="false" retries="2" />
+    <dubbo:reference id="asDesignerSearchService" interface="com.biyao.search.as.service.ASDesignerSearchService"
+        version="${search_as.version}" group="${search_as.group}" timeout="2000" check="false" retries="2" />
+    <dubbo:reference id="asDesignerProductSearchService" interface="com.biyao.search.as.service.ASDesignerProductSearchService"
+        version="${search_as.version}" group="${search_as.group}" timeout="2000" check="false" retries="2" />
+    <dubbo:reference id="productRankService" interface="com.biyao.rank.client.product.service.IProductRankListService"
+        version="${product_rank.version}" group="${product_rank.group}" timeout="5000" check="false" retries="2" />
+    <dubbo:reference id="orderBaseService" interface="com.biyao.orderquery.client.tob.IBOrderBaseQueryService"
+        version="${border_base.version}" group="${border_base.group}" timeout="5000" check="false" retries="2" />
+   
+    <dubbo:reference id="asMainService" interface="com.biyao.search.as.service.ASMainSearchService"
+        version="${search_as.version}" group="${search_as.group}" timeout="5000" check="false" retries="2" /> 
+        
+    <!-- 需要特权金服务 -->
+    <dubbo:reference id="shopRedBagPrivilegeBagService" interface="com.biyao.mac.client.redbag.shop.privilegebag.service.IShopRedBagPrivilegeBagService"
+                     version="${mac.version}" group="${mac.group}" timeout="5000" check="false" retries="2" />
+                     
+    <!-- 需要nova服务 -->
+    <dubbo:reference id="recommendPageDubboService" interface="com.biyao.nova.novaservice.service.RecommendPageDubboService"
+                     version="${nova.version}" group="${nova.group}" timeout="100" check="false" retries="0"/>
+    <dubbo:reference id="contactFriendsDubboService" interface="com.biyao.nova.novaservice.service.ContactFriendsDubboService"
+                     version="${nova.version}" group="${nova.group}" timeout="100" check="false" retries="0" />
+    <!-- 需要search-bs服务 -->
+    <dubbo:reference id="topicMatch" interface="com.biyao.search.bs.service.TopicMatch"
+                     version="${search_bs.version}" group="${search_bs.group}" timeout="15000" check="false" retries="0" />
+    <!-- 私人手冲咖啡服务 -->
+    <dubbo:reference id="productionService" interface="com.biyao.productclient.agent.product.IProductionService"
+                     version="${coffee.version}" group="${coffee.group}" timeout="5000" check="false" retries="2" />
+
+                     
+    <!-- 阶梯团服务 -->
+     <dubbo:reference id="ladderComputeService" interface="com.biyao.gba.dubbo.client.ladder.compute.service.ILadderComputeService"
+		group="${ladder.group}" version="${ladder.version}" timeout="5000" retries="1" check="false" />
+		
+     <dubbo:reference id="materialQueryDubboService" interface="com.biyao.cms.client.material.service.IMaterialQueryDubboService"
+                     version="${cms.version}" group="${cms.group}"  timeout="5000" check="false"/>
+                     
+    <!--upc系统对接 新老客校验 -->
+    <dubbo:reference id="iBusinessTocDubboService" interface="com.biyao.upc.dubbo.client.business.toc.IBusinessTocDubboService"
+                     version="${upc.version}" group="${upc.group}" owner="lizhiyong" retries="0"
+                     timeout="5000" check="false"/>
+     <!--gba系统：起拼活动总配置信息查询接口-->
+    <dubbo:reference id="togGroupActivityToCService" interface="com.biyao.gba.dubbo.client.toggroup.activity.service.ITogGroupActivityToCService"
+                     version="${gbayqp.version}"
+                     group="${gbayqp.group}" timeout="3000" retries="0"
+                     check="false"/>
+    <!-- pdc 商品服务 -->
+    <dubbo:reference id="productDubboService" interface="com.biyao.client.service.IProductDubboService"
+                     group="${pdc.group}"
+                     version="${pdc.version}" timeout="30000" retries="1" check="false"/>
+
+    <!-- mag 梦工厂店铺服务 -->
+    <dubbo:reference id="dreamWorksShopCommonService" interface="com.biyao.mag.dubbo.client.tob.IDreamWorksShopCommonService"
+                     group="${mag.group}"
+                     version="${mag.version}" timeout="30000" retries="1" check="false"/>
+
+    <!-- pdc 衍生商品服务 -->
+    <dubbo:reference id="deriveProductDubboService"
+                     interface="com.biyao.client.service.IDeriveProductDubboService"
+                     group="${pdc.group}"
+                     version="${pdc.version}"
+                     timeout="30000"
+                     retries="1"
+                     check="false"/>
+    <!--uc系统-->
+    <dubbo:reference id="ucServerService"
+                     interface="com.biyao.uc.service.UcServerService"
+                     protocol="dubbo"
+                     timeout="1000"
+                     retries="0"
+                     check="false"
+                     group="${uc.group}"
+                     version="${uc.version}" />
+
+    <!-- search衍生商品match服务 -->
+    <dubbo:reference id="deriveProductMatch"
+                     interface="com.biyao.search.bs.service.DeriveProductMatch"
+                     version="${search_bs.version}"
+                     group="${search_bs.group}"
+                     timeout="5000"
+                     check="false"
+                     retries="2" />
+    <!-- 视频标识批量查询接口 -->
+    <dubbo:reference id="product2cRpcService"
+                     interface="com.biyao.product2c.dubbo.client.spu.ISpuToCService"
+                     version="${product2c.version}"
+                     group="${product2c.group}"
+                     timeout="100"
+                     check="false"
+                     retries="0" />
+    <!-- 声明需要暴露的服务接口 -->
+    <dubbo:service interface="com.biyao.search.ui.rest.UISearchRestService"
+       version="${search_ui.version}" group="${search_ui.group}" ref="searchService" protocol="rest"/>
+    <bean id="searchService" class="com.biyao.search.ui.rest.impl.UISearchRestServiceImpl" />
+
+    <dubbo:service interface="com.biyao.search.ui.rest.UIDesignerSearchRestService"
+       version="${search_ui.version}" group="${search_ui.group}" ref="designerSearchService" protocol="rest"/>
+    <bean id="designerSearchService" class="com.biyao.search.ui.rest.impl.UIDesignerSearchRestServiceImpl" />
+    
+    <dubbo:service interface="com.biyao.search.ui.rest.UIDesignerProductSearchRestService" 
+       version="${search_ui.version}" group="${search_ui.group}" ref="designerProductSearchService" protocol="rest"/>
+    <bean id="designerProductSearchService" class="com.biyao.search.ui.rest.impl.UIDesignerProductSearchRestServiceImpl" />
+    
+    <dubbo:service interface="com.biyao.search.ui.remote.UISearchService" 
+       version="${search_ui.version}" group="${search_ui.group}" ref="uiNewSearchService" protocol="rest"/>
+
+    <!-- 提供dubbo协议接口 -->
+    <dubbo:service interface="com.biyao.search.ui.home.dubbo.HomeDubboService" owner="zhaiweixi"
+                   version="${search_ui.version}" group="${search_ui.group}" ref="homeDubboServiceImpl" protocol="dubbo"/>
+
+    <!-- pc首页改版提供dubbo协议接口 -->
+    <dubbo:service interface="com.biyao.search.ui.home.dubbo.IPcHomeDubboService" owner="maping"
+                   version="${search_ui.version}" group="${search_ui.group}" ref="pcHomeDubboService" protocol="dubbo"/>
+    <bean id="pcHomeDubboService" class="com.biyao.search.ui.remote.impl.PcHomeDubboServiceImpl" />
+</beans>

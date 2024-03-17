@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+    <!--  默认开启注解  -->
+    <context:annotation-config />
+    <!--  自动扫描包  -->
+    <context:component-scan base-package="com.biyao" />
+    
+    <!-- 使用disconf必须添加以下配置 -->
+	<bean id="disconfMgrBean" class="com.baidu.disconf.client.DisconfMgrBean"
+		destroy-method="destroy">
+        <property name="scanPackage" value="com.biyao.search"/>
+    </bean>
+    <bean id="disconfMgrBean2" class="com.baidu.disconf.client.DisconfMgrBeanSecond"
+		init-method="init" destroy-method="destroy">
+    </bean>
+    <!-- 使用托管方式的disconf配置(配置更改不会自动reload)-->  
+    <bean id="configproperties_disconf"  
+          class="com.baidu.disconf.client.addons.properties.ReloadablePropertiesFactoryBean">  
+        <property name="locations">  
+            <list>  
+                <value>classpath:search-ui.properties</value>  
+                <value>classpath:dclog.properties</value>  
+<!--                 <value>classpath:exp.conf</value> -->
+<!--                 <value>classpath:layer.conf</value> -->
+            </list>  
+        </property>
+    </bean>  
+    <bean id="propertyConfigurer"  
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">  
+        <property name="ignoreResourceNotFound" value="true"/>  
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>  
+        <property name="propertiesArray">  
+            <list>  
+                <ref bean="configproperties_disconf"/>  
+            </list>  
+        </property>  
+    </bean>  
+    
+   <!--  <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:search-ui.properties</value>
+            </list>
+        </property>
+    </bean> -->
+    <!-- 配置 aop 动态代理 -->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+    <!-- 注解处理器 -->
+    <bean class="com.by.profiler.annotation.Annotation">
+        <property name="appId" value="10085"></property>
+    </bean>
+    <import resource="search-ui-dubbo.xml"/>
+    <import resource="search-ui-module.xml"/>
+    <import resource="search-ui-redis.xml"/>
+    <import resource="search-ui-byconf.xml"/>
+</beans>

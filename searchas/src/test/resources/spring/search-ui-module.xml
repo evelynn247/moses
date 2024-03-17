@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans.xsd ">
+
+	<bean name="uiSearchRestService" class="com.biyao.search.ui.rest.impl.UISearchRestServiceImpl"/>
+	
+	<bean name="modInitRequest" class="com.biyao.search.ui.rest.impl.module.ModInitRequest"/>
+	<bean name="modRequestAs" class="com.biyao.search.ui.rest.impl.module.ModRequestAS"/>
+	<bean name="modResponse" class="com.biyao.search.ui.rest.impl.module.ModResponse"/>
+	<bean name="modRecordLog" class="com.biyao.search.ui.rest.impl.module.ModRecordLog"/>
+
+</beans>
