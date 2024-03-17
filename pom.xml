@@ -18,6 +18,10 @@
         <module>moses-es</module>
         <module>moses-api-online</module>
         <module>moses-common-online</module>
+        <module>moses-ui</module>
+        <module>moses-rank</module>
+        <module>moses-match</module>
+        <module>moses-common</module>
     </modules>
 
     <properties>
@@ -30,12 +34,6 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>

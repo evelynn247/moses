@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="moses-rank:war">
+    <output-path>$PROJECT_DIR$/moses-rank/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>moses-rank</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="mosesrank.biyao.com_2.8.0_videomasterV1.0.0.war">
+      <element id="artifact" artifact-name="moses-rank:war exploded" />
+    </root>
+  </artifact>
+</component>

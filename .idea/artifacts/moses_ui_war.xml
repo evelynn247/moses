@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="moses-ui:war">
+    <output-path>$PROJECT_DIR$/moses-ui/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>moses-ui</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="moses.biyao.com_3.0.2_recommendsyspromotionV1.0.war">
+      <element id="artifact" artifact-name="moses-ui:war exploded" />
+    </root>
+  </artifact>
+</component>

@@ -42,6 +42,7 @@ public class ESClientConfig {
         return restHighLevelClient;
     }
 
+    //10.6.38.234:9200;10.6.38.235:9200;10.6.38.237:9200;
     private List<HttpHost> buildHost(){
         List<HttpHost> httpHosts =new ArrayList<>();
         String[] esHosts = esHostList.split(";");

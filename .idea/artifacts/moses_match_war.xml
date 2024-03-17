@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="moses-match:war">
+    <output-path>$PROJECT_DIR$/moses-match/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>moses-match</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="mosesmatch.biyao.com_3.0.1_proManageV1.0.war">
+      <element id="artifact" artifact-name="moses-match:war exploded" />
+    </root>
+  </artifact>
+</component>

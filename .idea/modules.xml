@@ -3,6 +3,14 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/moses.iml" filepath="$PROJECT_DIR$/.idea/moses.iml" />
+      <module fileurl="file://$PROJECT_DIR$/moses-api-online/moses-api-online.iml" filepath="$PROJECT_DIR$/moses-api-online/moses-api-online.iml" />
+      <module fileurl="file://$PROJECT_DIR$/moses-common/moses-common.iml" filepath="$PROJECT_DIR$/moses-common/moses-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/moses-common-online/moses-common-online.iml" filepath="$PROJECT_DIR$/moses-common-online/moses-common-online.iml" />
+      <module fileurl="file://$PROJECT_DIR$/moses-es/moses-es.iml" filepath="$PROJECT_DIR$/moses-es/moses-es.iml" />
+      <module fileurl="file://$PROJECT_DIR$/moses-match/moses-match.iml" filepath="$PROJECT_DIR$/moses-match/moses-match.iml" />
+      <module fileurl="file://$PROJECT_DIR$/moses-match-online/moses-match-online.iml" filepath="$PROJECT_DIR$/moses-match-online/moses-match-online.iml" />
+      <module fileurl="file://$PROJECT_DIR$/moses-rank/moses-rank.iml" filepath="$PROJECT_DIR$/moses-rank/moses-rank.iml" />
+      <module fileurl="file://$PROJECT_DIR$/moses-ui/moses-ui.iml" filepath="$PROJECT_DIR$/moses-ui/moses-ui.iml" />
     </modules>
   </component>
 </project>

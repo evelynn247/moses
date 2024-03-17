@@ -53,7 +53,7 @@ public class RecommendMatchContext {
         MatchResponse2 matchResponse2 = new MatchResponse2();
         apiResult.setData(matchResponse2);
         // 解析召回源信息
-        Map<String, SourceWeightBo> sourceWeightBoMap = MatchUtil.parseSourceAndWeight(request.getSourceAndWeight(), request.getSid());
+        Map<String, SourceWeightBo> sourceWeightBoMap = MatchUtil.parseSourcecAndWeight(request.getSourceAndWeight(), request.getSid());
         if (CollectionUtils.isEmpty(sourceWeightBoMap)) {
             apiResult.setSuccess(PARAM_ERROR_CODE);
             return apiResult;
