@@ -2,5 +2,8 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/search-as/searchas" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/search-bs/search-bs" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/searchUI/search-ui" vcs="Git" />
   </component>
 </project>
